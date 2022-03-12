@@ -1,0 +1,8 @@
+AddonId: Revisited_75824c9b-aa0e-43ad-a98c-9b4c44f07848
+Packages:
+  - Version: 1.5.0
+    RequiredApiVersion: 2.0.0
+    ReleaseDate: 2022-03-09
+    PackageUrl: https://github.com/ld892012/PlayniteRevisitedSkin/releases/download/1.5/Revisited_1_5.pthm
+    Changelog:
+      - First official release
