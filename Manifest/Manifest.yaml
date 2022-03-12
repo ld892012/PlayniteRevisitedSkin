@@ -6,3 +6,4 @@ Packages:
     PackageUrl: https://github.com/ld892012/PlayniteRevisitedSkin/releases/download/1.5/Revisited_1_5.pthm
     Changelog:
       - First official release
+      - Added some Up/Down actions in Details view and Status View
