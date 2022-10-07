@@ -29,7 +29,7 @@
                             <RowDefinition Height="10" />
                         </Grid.RowDefinitions>
 
-                        <FadeImage Name="Background" Source="{Binding BackgroundImage}"
+                        <FadeImage Name="Background" Source="{Binding Game.BackgroundImage}"
                                RenderOptions.BitmapScalingMode="Fant"
                                HorizontalAlignment="Center" VerticalAlignment="Top" Grid.RowSpan="3"/>
 
