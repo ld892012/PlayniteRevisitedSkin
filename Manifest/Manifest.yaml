@@ -7,7 +7,7 @@ Packages:
     Changelog:
       - First official release
       - Added some Up/Down actions in Details view and Status View
-  - Version: 1.6.0
+  - Version: 1.6
     RequiredApiVersion: 2.0.0
     ReleaseDate: 2022-10-07
     PackageUrl: https://github.com/ld892012/PlayniteRevisitedSkin/releases/download/1.6/Revisited_1_6.pthm
