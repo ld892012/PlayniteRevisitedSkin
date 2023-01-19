@@ -2,7 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <Style x:Key="SettingsMenuBorder" TargetType="Border">
-        <Setter Property="Background" Value="{StaticResource OverlayMenuBackgroundBrush}" />
+        <Setter Property="Background" Value="{DynamicResource OverlayMenuBackgroundBrush}" />
     </Style>
     
     <Style x:Key="SettingsSectionBorder" TargetType="Border">

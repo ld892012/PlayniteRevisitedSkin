@@ -14,7 +14,8 @@
                           d:DesignHeight="{StaticResource DesignHeight}"
                           d:DataContext="{x:Static DesignMainViewModel.DesignSelectedGameIntance}"
                           KeyboardNavigation.DirectionalNavigation="Contained"
-                          KeyboardNavigation.TabNavigation="Contained"
+                          KeyboardNavigation.TabNavigation="Cycle"
+                          KeyboardNavigation.ControlTabNavigation="Cycle"
                           FocusManager.FocusedElement="{Binding ElementName=PART_ButtonContext}"
                           Focusable="True">
                         <Grid.RowDefinitions>
@@ -26,15 +27,41 @@
 
                         <FadeImage HorizontalAlignment="Center" VerticalAlignment="Top" Grid.RowSpan="4" x:Name="PART_ImageBackground" />
 
-                        <StackPanel x:Name="LeTest" Grid.Row="2" Margin="80,5,5,5" HorizontalAlignment="Left" VerticalAlignment="Bottom" Opacity="1.0" FocusManager.FocusedElement="{Binding ElementName=PART_ButtonContext}">
-                            <TextBlock Style="{DynamicResource TextBlockBaseStyle}"
-                                       Text="{Binding DisplayName}"
+                        <Image Grid.Row="1" Margin="50,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" Source="{Binding IconObjectCached}" MaxHeight="630" MaxWidth="650">
+                            <Image.Style>
+                                <Style>
+                                    <Setter Property="ItemsControl.Visibility" Value="Collapsed" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Settings FullscreenItemSpacingMargin}" Value="0,0,0,0">
+                                            <Setter Property="ItemsControl.Visibility" Value="Visible" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Settings FullscreenItemSpacingMargin}" Value="0.1875,0,0.1875,0">
+                                            <Setter Property="ItemsControl.Visibility" Value="Visible" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Image.Style>
+						</Image>
+
+                        <StackPanel x:Name="LeTest" Grid.Row="2" Margin="80,5,5,5" HorizontalAlignment="Left" VerticalAlignment="Bottom" Opacity="1.0" 
+                                    FocusManager.FocusedElement="{Binding ElementName=PART_ButtonContext}">
+                            <TextBlock Text="{Binding DisplayName}"
                                        Foreground="White" FontFamily="{DynamicResource FontTitilliumWebBold}"
                                        FontSize="38" DockPanel.Dock="Top" Margin="0,0,0,13">
                                 <TextBlock.Effect>
                                     <DropShadowEffect ShadowDepth="2" Color="Black"
                                                       RenderingBias="Quality" Opacity="1"/>
                                 </TextBlock.Effect>
+                                <TextBlock.Style>
+                                    <Style>
+                                        <Setter Property="ItemsControl.Visibility" Value="Visible" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Settings FullscreenItemSpacingMargin}" Value="0,0,0,0">
+                                                <Setter Property="ItemsControl.Visibility" Value="Collapsed" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
                             </TextBlock>
 
                             <StackPanel Orientation="Horizontal" Margin="0" DockPanel.Dock="Top">
@@ -96,24 +123,15 @@
                                Height="50" RenderOptions.BitmapScalingMode="Fant" Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Top" Grid.Column="1" Width="50" Margin="0,100,0,0">
                             </Image>
 
-                            <!--StackPanel Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,10,0,0">
-                                <TextBlock Style="{DynamicResource TextBlockBaseStyle}"
-                                               FontFamily="{DynamicResource FontTitilliumWebBold}"
-                                               Text="{DynamicResource LOCGameCategoryTitle}"
-                                               Margin="0,0,0,10" />
-                                <TextBlock Style="{DynamicResource TextBlockBaseStyle}"
-                                               Text="{Binding Categories, Converter={StaticResource ListToStringConverter}}" VerticalAlignment="Center" />
-                            </StackPanel-->
-
-                            <Grid Grid.Row="1" Grid.Column="3" Margin="10,0,10,0" Height="100" VerticalAlignment="Top" HorizontalAlignment="Center">
-                                <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+                            <Grid Grid.Row="1" Grid.Column="3" Margin="40,0,10,0" Height="100" VerticalAlignment="Top" HorizontalAlignment="Left">
+                                <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" HorizontalAlignment="Center">
                                     <StackPanel>
                                         <TextBlock Style="{DynamicResource TextBlockBaseStyle}"
                                                FontFamily="{DynamicResource FontTitilliumWebBold}"
-                                               Text="{DynamicResource LOCTimePlayed}"
+                                               Text="{DynamicResource LOCGameReleaseDateTitle}"
                                                Margin="0,0,0,10" />
                                         <TextBlock Style="{DynamicResource TextBlockBaseStyle}"
-                                               Text="{Binding Playtime, Converter={StaticResource PlayTimeToStringConverter}}" />
+                                               Text="{Binding ReleaseDate}" HorizontalAlignment="Center" />
                                     </StackPanel>
 
                                     <StackPanel Margin="50,0,0,0">
@@ -122,16 +140,25 @@
                                                Text="{DynamicResource LOCGameLastActivityTitle}"
                                                Margin="0,0,0,10" />
                                         <TextBlock Style="{DynamicResource TextBlockBaseStyle}"
-                                               Text="{Binding LastActivity, Converter={StaticResource DateTimeToLastPlayedConverter}}" />
+                                               Text="{Binding LastActivity, Converter={StaticResource DateTimeToLastPlayedConverter}}" HorizontalAlignment="Center" />
                                     </StackPanel>
 
                                     <StackPanel Margin="50,0,0,0">
                                         <TextBlock Style="{DynamicResource TextBlockBaseStyle}"
                                                FontFamily="{DynamicResource FontTitilliumWebBold}"
-                                               Text="{DynamicResource LOCGameReleaseDateTitle}"
+                                               Text="{DynamicResource LOCTimePlayed}"
                                                Margin="0,0,0,10" />
                                         <TextBlock Style="{DynamicResource TextBlockBaseStyle}"
-                                               Text="{Binding ReleaseDate}" />
+                                               Text="{Binding Playtime, Converter={StaticResource PlayTimeToStringConverter}}" HorizontalAlignment="Center" />
+                                    </StackPanel>
+
+                                    <StackPanel Margin="50,0,0,0">
+                                        <TextBlock Style="{DynamicResource TextBlockBaseStyle}"
+                                               FontFamily="{DynamicResource FontTitilliumWebBold}"
+                                               Text="{DynamicResource LOCCompletionStatus}"
+                                               Margin="0,0,0,10" />
+                                        <TextBlock Style="{DynamicResource TextBlockBaseStyle}"
+                                               Text="{Binding CompletionStatus}" HorizontalAlignment="Center" />
                                     </StackPanel>
                                 </StackPanel>
                             </Grid>
