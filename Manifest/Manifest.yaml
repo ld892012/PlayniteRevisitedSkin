@@ -13,3 +13,11 @@ Packages:
     PackageUrl: https://github.com/ld892012/PlayniteRevisitedSkin/releases/download/1.6/Revisited_1_6.pthm
     Changelog:
       - Fix issue with SplashScreen for Playnite 10.3
+  - Version: 1.7.0
+    RequiredApiVersion: 2.0.0
+    ReleaseDate: 2023-01-19
+    PackageUrl: https://github.com/ld892012/PlayniteRevisitedSkin/releases/download/1.7/Revisited_1_7.pthm
+    Changelog:
+      - Added some enhancements from Default skin's updates
+      - Reorganized elements in Details view and add completion status
+      - Added a workaround to show icon in game details using "Settings>Layout>Item spacing" value (0 = Icon only, 1 = Icon and title, anything else = Title only)
