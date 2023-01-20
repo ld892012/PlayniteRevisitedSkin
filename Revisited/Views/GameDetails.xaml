@@ -59,6 +59,9 @@
                                             <DataTrigger Binding="{Settings FullscreenItemSpacingMargin}" Value="0,0,0,0">
                                                 <Setter Property="ItemsControl.Visibility" Value="Collapsed" />
                                             </DataTrigger>
+                                            <DataTrigger Binding="{Binding IconObjectCached}" Value="{x:Null}">
+                                                <Setter Property="ItemsControl.Visibility" Value="Visible" />
+                                            </DataTrigger>
                                         </Style.Triggers>
                                     </Style>
                                 </TextBlock.Style>
@@ -73,7 +76,7 @@
 
                         <ButtonEx x:Name="MasqTout" DockPanel.Dock="Top" Opacity="0" Width="0" Height="0" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Center"/>
 
-                        <ButtonEx x:Name="DeAffInfos" DockPanel.Dock="Top" Opacity="0" Width="0" Height="0" HorizontalAlignment="Center" Grid.Row="0" VerticalAlignment="Center" Margin="0,0,0,0" Focusable="False" FocusManager.FocusedElement="{Binding ElementName=PART_ButtonOptions}"/>
+                        <ButtonEx x:Name="DeAffInfos" DockPanel.Dock="Top" Opacity="0" Width="0" Height="0" HorizontalAlignment="Center" Grid.Row="0" VerticalAlignment="Center" Margin="0,0,0,0" Focusable="False" FocusManager.FocusedElement="{Binding ElementName=PART_ButtonOptions}" />
 
                         <Grid x:Name="Details" Height="620" VerticalAlignment="Bottom" Grid.Row="1" Width="1508" Grid.RowSpan="13" Margin="0,0,0,-620" Background="#CC000000" Focusable="False">
                             <Grid.ColumnDefinitions>
