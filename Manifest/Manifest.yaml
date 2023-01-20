@@ -23,7 +23,7 @@ Packages:
       - Added a workaround to show icon in game details using "Settings>Layout>Item spacing" value (0 = Icon only, 1 = Icon and title, anything else = Title only)
   - Version: 1.7.1
     RequiredApiVersion: 2.0.0
-    ReleaseDate: 2023-01-19
+    ReleaseDate: 2023-01-20
     PackageUrl: https://github.com/ld892012/PlayniteRevisitedSkin/releases/download/1.7.1/Revisited_1_7_1.pthm
     Changelog:
       - Fixed Detail view focus issues provided by the previous version (sorry)
