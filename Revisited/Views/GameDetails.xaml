@@ -53,7 +53,7 @@
                                                       RenderingBias="Quality" Opacity="1"/>
                                 </TextBlock.Effect>
                                 <TextBlock.Style>
-                                    <Style>
+                                    <Style TargetType="TextBlock" BasedOn="{StaticResource TextBlockBaseStyle}">
                                         <Setter Property="ItemsControl.Visibility" Value="Visible" />
                                         <Style.Triggers>
                                             <DataTrigger Binding="{Settings FullscreenItemSpacingMargin}" Value="0,0,0,0">
@@ -93,14 +93,14 @@
                                 <RowDefinition Height="50" />
                             </Grid.RowDefinitions>
 
-                            <ScrollViewerEx DockPanel.Dock="Top" Grid.Row="1" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Top" x:Name="Description"
-                                            Margin="0,110,0,0" Grid.ColumnSpan="2" Grid.RowSpan="2" HorizontalContentAlignment="Center">
+                            <ScrollViewerEx DockPanel.Dock="Top" Grid.Row="1" Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Top" x:Name="Description"
+                                            Margin="0,110,0,0" Grid.RowSpan="2" HorizontalContentAlignment="Left" >
                                 <HtmlTextView x:Name="PART_HtmlDescription"
-                                                HtmlFontSize="22"
+                                                HtmlFontSize="22" Margin="20,0,10,0"
                                                 HtmlForeground="{DynamicResource TextColor}"
                                                 LinkForeground="{DynamicResource GlyphColor}"
                                                 FocusVisualStyle="{x:Null}" Focusable="True" Visibility="Visible"
-                                                ScrollViewer.VerticalScrollBarVisibility="Auto"/>
+                                                ScrollViewer.VerticalScrollBarVisibility="Auto" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                             </ScrollViewerEx>
 
                             <TextBlock Style="{DynamicResource TextBlockBaseStyle}"

@@ -35,7 +35,7 @@
                                 </Grid.ColumnDefinitions>
 
                                 <FilterPresetSelector x:Name="PART_FilterPresetSelector" Grid.Column="1" Margin="0,0,50,0" />
-                                
+
                                 <ContentControl x:Name="PART_ElemBatteryStatus" Focusable="False" FontSize="42"
                                             VerticalAlignment="Center" Margin="10,0,10,0"
                                             Grid.Column="2">
@@ -123,34 +123,42 @@
 
                                 <TextBlock x:Name="PART_TextClock" Style="{DynamicResource TextBlockBaseStyle}" FontWeight="Bold" FontSize="48" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Top"/>
 
-                                <StackPanel Grid.Column="2" x:Name="PART_ElemSearchActive"
+                                <Grid Grid.Column="2" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Bottom">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="70" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+
+                                    <StackPanel Grid.Row="0" x:Name="PART_ElemSearchActive"
                                             VerticalAlignment="Stretch" HorizontalAlignment="Left">
-                                    <TextBlock  FontSize="18"                                                
+                                        <TextBlock  FontSize="18"                                                
                                                 TextAlignment="Center"
                                                 Style="{DynamicResource TextBlockBaseStyle}"
                                                 Text="{DynamicResource LOCGameListSearchResults}"/>
-                                    <TextBlock  Foreground="White"
+                                        <TextBlock  Foreground="White"
                                                 TextAlignment="Center"
                                                 Style="{DynamicResource TextBlockBaseStyle}"
                                                 Text="{Binding AppSettings.Fullscreen.FilterSettings.Name}"/>
-                                </StackPanel>
+                                    </StackPanel>
 
-                                <TextBlock Grid.Column="2" x:Name="PART_ElemExtraFilterActive"
+                                    <TextBlock Grid.Row="0" x:Name="PART_ElemExtraFilterActive"
                                        FontSize="20"
                                        VerticalAlignment="Center" HorizontalAlignment="Left"
                                        TextAlignment="Center"
                                        Style="{DynamicResource TextBlockBaseStyle}"
                                        Text="{DynamicResource LOCGameListExtraFiltered}"/>
 
-                            </Grid>
-
-                            <StackPanel x:Name="PART_ElemProgressIndicator" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Row="1" Margin="0,0,100,0">
-                                <TextBlock x:Name="PART_TextProgressTooltip" 
+                                    <StackPanel x:Name="PART_ElemProgressIndicator" Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Height="70" >
+                                        <TextBlock x:Name="PART_TextProgressTooltip" 
                                            Margin="0,0,15,0" FontSize="20" VerticalAlignment="Center"
                                            Style="{DynamicResource TextBlockBaseStyle}"/>
-                                <ContentControl Style="{DynamicResource ProgressIndicator}" Focusable="False"
-                                                Height="38" Width="38" VerticalAlignment="Center"/>
-                            </StackPanel>
+                                        <ContentControl Style="{DynamicResource ProgressIndicator}" Focusable="False"
+                                           Height="38" Width="38" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </Grid>
+
+
+                            </Grid>
 
                             <DockPanel Grid.Row="1">
                                 <Filters x:Name="PART_ElemFilters"
@@ -193,31 +201,34 @@
                             </TextBlock>
 
                             <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Right">
-                                    <!--Install-->
-                                    <ButtonEx x:Name="PART_ButtonInstall"
+                                <StackPanel.Effect>
+                                    <DropShadowEffect Opacity="1" BlurRadius="20" ShadowDepth="0" Direction="0"/>
+                                </StackPanel.Effect>
+                                <!--Install-->
+                                <ButtonEx x:Name="PART_ButtonInstall"
                                               Style="{DynamicResource ButtonBottomMenu}"
                                               Content="{DynamicResource LOCInstallGame}" />
-                                    <!--Play-->
-                                    <ButtonEx x:Name="PART_ButtonPlay"
+                                <!--Play-->
+                                <ButtonEx x:Name="PART_ButtonPlay"
                                               Style="{DynamicResource ButtonBottomMenu}"
                                               Content="{DynamicResource LOCPlayGame}" />
-                                    <!--Details-->
-                                    <ButtonEx x:Name="PART_ButtonDetails"
+                                <!--Details-->
+                                <ButtonEx x:Name="PART_ButtonDetails"
                                               Style="{DynamicResource ButtonBottomMenu}"
                                               Content="{DynamicResource LOCGameDetails}" />
-                                    <!--Options-->
-                                    <ButtonEx x:Name="PART_ButtonGameOptions"
+                                <!--Options-->
+                                <ButtonEx x:Name="PART_ButtonGameOptions"
                                               Style="{DynamicResource ButtonBottomMenu}"
                                               Content="{DynamicResource LOCGameOptions}" />
-                                    <!--Search-->
-                                    <ButtonEx x:Name="PART_ButtonSearch"
+                                <!--Search-->
+                                <ButtonEx x:Name="PART_ButtonSearch"
                                               Style="{DynamicResource ButtonBottomMenu}"
                                               Content="{DynamicResource LOCSearchLabel}" />
-                                    <!--Filter-->
-                                    <ButtonEx x:Name="PART_ButtonFilter"
+                                <!--Filter-->
+                                <ButtonEx x:Name="PART_ButtonFilter"
                                               Style="{DynamicResource ButtonBottomMenu}"
                                               Content="{DynamicResource LOCFilter}" />
-                                </StackPanel>
+                            </StackPanel>
                         </Grid>
 
                         <GameDetails x:Name="PART_ElemGameDetails" Grid.RowSpan="3"
