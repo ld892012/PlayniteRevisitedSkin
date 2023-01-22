@@ -28,3 +28,12 @@ Packages:
     Changelog:
       - Fixed Detail view focus issues provided by the previous version (sorry)
       - In Detail view Game title is showed if no icon has been provided regardless of Item spacing value
+  - Version: 1.7.2
+    RequiredApiVersion: 2.0.0
+    ReleaseDate: 2023-01-22
+    PackageUrl: https://github.com/ld892012/PlayniteRevisitedSkin/releases/download/1.7.2/Revisited_1_7_2.pthm
+    Changelog:
+      - Fixed filter panel not showing correctly (sorry again)
+      - Add margin to the game description
+      - Move Library update status to a more visible location
+      - Improve readability of buttons actions
