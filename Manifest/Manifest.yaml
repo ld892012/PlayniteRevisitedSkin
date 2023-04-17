@@ -37,3 +37,9 @@ Packages:
       - Add margin to the game description
       - Move Library update status to a more visible location
       - Improve readability of buttons actions
+  - Version: 1.7.3
+    RequiredApiVersion: 2.0.0
+    ReleaseDate: 2023-04-17
+    PackageUrl: https://github.com/ld892012/PlayniteRevisitedSkin/releases/download/1.7.3/Revisited_1_7_3.pthm
+    Changelog:
+      - Made some adjustments and release cleanup to match latest default theme changes
