@@ -5,6 +5,7 @@
       <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="LocSource.xaml" />
         <ResourceDictionary Source="GlobalResources.xaml" />
+        <ResourceDictionary Source="ControlGalleryView.xaml" />
         <ResourceDictionary Source="Constants.xaml" />
         <ResourceDictionary Source="Media.xaml" />
         <ResourceDictionary Source="Images/ButtonPrompts/Xbox/Xbox.xaml" />
@@ -29,7 +30,6 @@
         <ResourceDictionary Source="DerivedStyles/ButtonBottomMenu.xaml" />
         <ResourceDictionary Source="DerivedStyles/ButtonTopMenu.xaml" />
         <!--Views-->
-        <ResourceDictionary Source="Views/ActionSelection.xaml" />
         <ResourceDictionary Source="Views/FiltersAdditional.xaml" />
         <ResourceDictionary Source="Views/FiltersView.xaml" />
         <ResourceDictionary Source="Views/GameDetails.xaml" />
@@ -37,10 +37,12 @@
         <ResourceDictionary Source="Views/GameStatus.xaml" />
         <ResourceDictionary Source="Views/Main.xaml" />
         <ResourceDictionary Source="Views/MainMenu.xaml" />
+        <ResourceDictionary Source="Views/HelpMenu.xaml" />
         <ResourceDictionary Source="Views/MessageBox.xaml" />
         <ResourceDictionary Source="Views/NotificationsMenu.xaml" />
         <ResourceDictionary Source="Views/SettingsMenus.xaml" />
         <ResourceDictionary Source="Views/TextInput.xaml" />
+        <ResourceDictionary Source="Views/ItemSelection.xaml" />
       </ResourceDictionary.MergedDictionaries>
     </ResourceDictionary>
   </Application.Resources>
