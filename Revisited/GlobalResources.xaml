@@ -9,17 +9,12 @@
 
     <sys:Double x:Key="DesignWidth">1920</sys:Double>
     <sys:Double x:Key="DesignHeight">1080</sys:Double>
-
+    
     <sys:Boolean x:Key="True">True</sys:Boolean>
     <sys:Boolean x:Key="False">False</sys:Boolean>
-
-    <FontFamily x:Key="FontXboxOneController">/Fonts/XBOXONE.ttf#XBOXONE</FontFamily>
-    <FontFamily x:Key="FontPlayStation4Controller">/Fonts/PlayStation4.ttf#PlayStation4</FontFamily>
-    <FontFamily x:Key="FontTitilliumWeb">/Fonts/TitilliumWeb-Regular.ttf#Titillium Web</FontFamily>
-    <FontFamily x:Key="FontTitilliumWebLight">/Fonts/TitilliumWeb-Light.ttf#Titillium Web</FontFamily>
-    <FontFamily x:Key="FontTitilliumWebBold">/Fonts/TitilliumWeb-Bold.ttf#Titillium Web</FontFamily>
+    
     <FontFamily x:Key="FontIcoFont">/Fonts/icofont.ttf#icofont</FontFamily>
-
+    
     <pcon:BidirectionalEnumAndNumberConverter x:Key="BidirectionalEnumAndNumberConverter" />
     <pcon:BooleanToHiddenConverter x:Key="BooleanToHiddenConverter" />
     <pcon:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
@@ -62,4 +57,5 @@
     <pcon:ObjectEqualityToVisibilityConverter x:Key="ObjectEqualityToVisibilityConverter" />
     <pcon:InvertedObjectEqualityToBoolConverter x:Key="InvertedObjectEqualityToBoolConverter" />
     <pcon:InvertedObjectEqualityToVisibilityConverter x:Key="InvertedObjectEqualityToVisibilityConverter" />
+    <pcon:PluginIconSourceToElementConverter x:Key="PluginIconSourceToElementConverter" />
 </ResourceDictionary>

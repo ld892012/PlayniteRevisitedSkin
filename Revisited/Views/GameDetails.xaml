@@ -25,12 +25,36 @@
                             <RowDefinition Height="1.5*" />
                         </Grid.RowDefinitions>
 
-                        <FadeImage HorizontalAlignment="Center" VerticalAlignment="Top" Grid.RowSpan="4" x:Name="PART_ImageBackground" />
+                        <ContentControl x:Name="BackgroundChanger_PluginBackgroundImage" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.RowSpan="4" >
+                            <ContentControl.Style>
+                                <Style>
+                                    <Setter Property="ItemsControl.Visibility" Value="Collapsed" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{PluginSettings Plugin=BackgroundChanger, Path=HasDataBackground, FallbackValue=False}" Value="True">
+                                            <Setter Property="ItemsControl.Visibility" Value="Visible" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ContentControl.Style>
+                        </ContentControl>
 
-                        <Image Grid.Row="1" Margin="50,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" Source="{Binding IconObjectCached}" MaxHeight="630" MaxWidth="650">
+                        <Image HorizontalAlignment="Center" VerticalAlignment="Top" Grid.RowSpan="4"  Stretch="Uniform" Source="{Binding BackgroundImage, Converter={StaticResource ImageStringToImageConverter}, IsAsync=False}">
                             <Image.Style>
                                 <Style>
                                     <Setter Property="ItemsControl.Visibility" Value="Collapsed" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ElementName=BackgroundChanger_PluginBackgroundImage, Path=Visibility}" Value="Collapsed" >
+                                            <Setter Property="ItemsControl.Visibility" Value="Visible" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Image.Style>
+                        </Image>
+
+                        <StackPanel x:Name="AffLogo" Grid.Row="1" Margin="50,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" MaxHeight="630" MaxWidth="650">
+                            <StackPanel.Style>
+                                <Style TargetType="StackPanel">
+                                    <Setter Property="Visibility" Value="Collapsed" />
                                     <Style.Triggers>
                                         <DataTrigger Binding="{Settings FullscreenItemSpacingMargin}" Value="0,0,0,0">
                                             <Setter Property="ItemsControl.Visibility" Value="Visible" />
@@ -40,8 +64,39 @@
                                         </DataTrigger>
                                     </Style.Triggers>
                                 </Style>
-                            </Image.Style>
-						</Image>
+                            </StackPanel.Style>
+
+                            <StackPanel x:Name="LogoExtension">
+                                <StackPanel.Style>
+                                    <Style TargetType="StackPanel">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{PluginSettings Plugin=ExtraMetadataLoader, Path=IsLogoAvailable, FallbackValue=False}" Value="True">
+                                                <Setter Property="Visibility" Value="Visible" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </StackPanel.Style>
+                                <ContentControl x:Name="ExtraMetadataLoader_LogoLoaderControl" />
+                            </StackPanel>
+
+                            <Image x:Name="LogoIcone" Source="{Binding IconObjectCached}">
+                                <Image.Style>
+                                    <Style>
+                                        <Setter Property="ItemsControl.Visibility" Value="Collapsed"/>
+                                        <Style.Triggers>
+                                            <MultiDataTrigger>
+                                                <MultiDataTrigger.Conditions>
+                                                    <Condition Binding="{Binding IconObjectCached, Converter={StaticResource NullToBoolConverter}}" Value="True"/>
+                                                    <Condition Binding="{Binding ElementName=LogoExtension, Path=Visibility}" Value="Collapsed" />
+                                                </MultiDataTrigger.Conditions>
+                                                <Setter Property="ItemsControl.Visibility" Value="Visible" />
+                                            </MultiDataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Image.Style>
+                            </Image>
+                        </StackPanel>
 
                         <StackPanel x:Name="LeTest" Grid.Row="2" Margin="80,5,5,5" HorizontalAlignment="Left" VerticalAlignment="Bottom" Opacity="1.0" 
                                     FocusManager.FocusedElement="{Binding ElementName=PART_ButtonContext}">
@@ -54,14 +109,21 @@
                                 </TextBlock.Effect>
                                 <TextBlock.Style>
                                     <Style TargetType="TextBlock" BasedOn="{StaticResource TextBlockBaseStyle}">
-                                        <Setter Property="ItemsControl.Visibility" Value="Visible" />
+                                        <Setter Property="ItemsControl.Visibility" Value="Collapsed" />
                                         <Style.Triggers>
-                                            <DataTrigger Binding="{Settings FullscreenItemSpacingMargin}" Value="0,0,0,0">
-                                                <Setter Property="ItemsControl.Visibility" Value="Collapsed" />
-                                            </DataTrigger>
-                                            <DataTrigger Binding="{Binding IconObjectCached}" Value="{x:Null}">
+                                            <DataTrigger Binding="{Binding ElementName=AffLogo, Path=Visibility}" Value="Collapsed">
                                                 <Setter Property="ItemsControl.Visibility" Value="Visible" />
                                             </DataTrigger>
+                                            <DataTrigger Binding="{Settings FullscreenItemSpacingMargin}" Value="0.1875,0,0.1875,0">
+                                                <Setter Property="ItemsControl.Visibility" Value="Visible" />
+                                            </DataTrigger>
+                                            <MultiDataTrigger>
+                                                <MultiDataTrigger.Conditions>
+                                                    <Condition Binding="{Binding ElementName=LogoIcone, Path=Visibility}" Value="Collapsed" />
+                                                    <Condition Binding="{Binding ElementName=LogoExtension, Path=Visibility}" Value="Collapsed" />
+                                                </MultiDataTrigger.Conditions>
+                                                <Setter Property="ItemsControl.Visibility" Value="Visible" />
+                                            </MultiDataTrigger>
                                         </Style.Triggers>
                                     </Style>
                                 </TextBlock.Style>
@@ -174,6 +236,15 @@
 
 
                     <ControlTemplate.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=PART_ElemGameDetails, Path=Visibility}" Value="Visible">
+                            <DataTrigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetProperty="Opacity" BeginTime="0:0:0" Duration="0:0:0.3" From="0" To="1"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </DataTrigger.EnterActions>
+                        </DataTrigger>
                         <Trigger Property="IsFocused" SourceName="MasqTout" Value="True">
                             <Trigger.EnterActions>
                                 <BeginStoryboard>
@@ -184,6 +255,10 @@
                                         </DoubleAnimationUsingKeyFrames>
                                         <DoubleAnimationUsingKeyFrames Storyboard.TargetName="Arrow" Storyboard.TargetProperty="Opacity" Duration="0:0:1">
                                             <LinearDoubleKeyFrame Value = "0.7" KeyTime = "0:0:0"/>
+                                            <LinearDoubleKeyFrame Value = "0.0" KeyTime = "0:0:1"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="AffLogo" Storyboard.TargetProperty="Opacity" Duration="0:0:1">
+                                            <LinearDoubleKeyFrame Value = "1.0" KeyTime = "0:0:0"/>
                                             <LinearDoubleKeyFrame Value = "0.0" KeyTime = "0:0:1"/>
                                         </DoubleAnimationUsingKeyFrames>
                                     </Storyboard>
@@ -199,6 +274,10 @@
                                         <DoubleAnimationUsingKeyFrames Storyboard.TargetName="Arrow" Storyboard.TargetProperty="Opacity" Duration="0:0:1">
                                             <LinearDoubleKeyFrame Value = "0.0" KeyTime = "0:0:0"/>
                                             <LinearDoubleKeyFrame Value = "0.7" KeyTime = "0:0:1"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="AffLogo" Storyboard.TargetProperty="Opacity" Duration="0:0:1">
+                                            <LinearDoubleKeyFrame Value = "0.0" KeyTime = "0:0:0"/>
+                                            <LinearDoubleKeyFrame Value = "1.0" KeyTime = "0:0:1"/>
                                         </DoubleAnimationUsingKeyFrames>
                                     </Storyboard>
                                 </BeginStoryboard>
@@ -239,6 +318,17 @@
                                                 <Thickness>0,0,0,-50</Thickness>
                                             </ThicknessAnimation.To>
                                         </ThicknessAnimation>
+                                        <ThicknessAnimation Duration="0:0:1" 
+                                                            Storyboard.TargetName="AffLogo" 
+                                                            Storyboard.TargetProperty="Margin"
+                                                            >
+                                            <ThicknessAnimation.To>
+                                                <Thickness>206,0,0,200</Thickness>
+                                            </ThicknessAnimation.To>
+                                            <ThicknessAnimation.EasingFunction>
+                                                <CircleEase EasingMode="EaseOut"/>
+                                            </ThicknessAnimation.EasingFunction>
+                                        </ThicknessAnimation>
                                     </Storyboard>
                                 </BeginStoryboard>
                             </Trigger.EnterActions>
@@ -271,6 +361,17 @@
                                                             >
                                             <ThicknessAnimation.To>
                                                 <Thickness>0,0,0,-620</Thickness>
+                                            </ThicknessAnimation.To>
+                                            <ThicknessAnimation.EasingFunction>
+                                                <CircleEase EasingMode="EaseOut"/>
+                                            </ThicknessAnimation.EasingFunction>
+                                        </ThicknessAnimation>
+                                        <ThicknessAnimation Duration="0:0:1" 
+                                                            Storyboard.TargetName="AffLogo" 
+                                                            Storyboard.TargetProperty="Margin"
+                                                            >
+                                            <ThicknessAnimation.To>
+                                                <Thickness>50,0,0,0</Thickness>
                                             </ThicknessAnimation.To>
                                             <ThicknessAnimation.EasingFunction>
                                                 <CircleEase EasingMode="EaseOut"/>

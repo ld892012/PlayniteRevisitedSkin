@@ -1,5 +1,6 @@
 # PlayniteRevisitedSkin
 It's just a Playnite default Fullscreen skin with some modifications inspired by PlayOS and DH_Blur.
+This skin supports [BackgroundChanger](https://github.com/Lacro59/playnite-backgroundchanger-plugin) and [ExtraMetadata](https://github.com/darklinkpower/PlayniteExtensionsCollection) logos.
 
 ## Main :
 
@@ -14,10 +15,10 @@ You can change appearance of Details view by changing Item spacing value (the re
 
 ![Settings](https://raw.githubusercontent.com/ld892012/PlayniteRevisitedSkin/main/Media/Options.png)
 
-0 : Show icon only\
+0 : Show icon/logo only\
 ![IconOnly](https://raw.githubusercontent.com/ld892012/PlayniteRevisitedSkin/main/Media/0_Icon.png)
 
-1 : Show icon and title\
+1 : Show icon/logo and title\
 ![IconOnly](https://raw.githubusercontent.com/ld892012/PlayniteRevisitedSkin/main/Media/1_IconTitle.png)
 
 Everything else : Show title only
@@ -39,9 +40,9 @@ By default, only the background is shown, if you want to close this window just 
 - [x] Transform Status view to add it game background
 - [x] Add advanced infos to detail view by pressing a key
 - [x] Add possibility to show icon in Detail view
+- [x] Add BackgroundChanger support
+- [x] Add Extra Metadata Loader support (Logos)
 - [ ] Add some modifiable skin settings (icon show, title show, Play item position, theme color, ...)
 - [ ] Add tools to Playnite menu (if possible)
-- [ ] Add BackgroundChanger support
-- [ ] Add Extra Metadata Loader support
 - [ ] Add SuccessStory entry to Advanced details
 - [ ] Add HowLongToBeat entry to Advanced details
