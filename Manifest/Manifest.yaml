@@ -43,3 +43,13 @@ Packages:
     PackageUrl: https://github.com/ld892012/PlayniteRevisitedSkin/releases/download/1.7.3/Revisited_1_7_3.pthm
     Changelog:
       - Made some adjustments and release cleanup to match latest default theme changes
+  - Version: 2.0.0
+    RequiredApiVersion: 2.1.0
+    ReleaseDate: 2024-04-28
+    PackageUrl: https://github.com/ld892012/PlayniteRevisitedSkin/releases/download/2.0.0/Revisited_2_0_0.pthm
+    Changelog:
+      - Add support of Background Changer
+      - Add support of ExtraMetadata Logo
+      - Now Up key in Detail view hides logo
+      - Now logo moves up when description is showed
+      - Add a fading effect when Details view is showed
