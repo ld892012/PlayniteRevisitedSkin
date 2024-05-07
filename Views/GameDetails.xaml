@@ -1,0 +1,389 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"                    
+                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                    mc:Ignorable="d">
+
+    <Style TargetType="{x:Type GameDetails}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type GameDetails}">
+                    <Grid Background="{DynamicResource MainBackgourndBrush}"
+                          x:Name="PART_ViewHost"
+                          d:DesignWidth="{StaticResource DesignWidth}"
+                          d:DesignHeight="{StaticResource DesignHeight}"
+                          d:DataContext="{x:Static DesignMainViewModel.DesignSelectedGameIntance}"
+                          KeyboardNavigation.DirectionalNavigation="Contained"
+                          KeyboardNavigation.TabNavigation="Cycle"
+                          KeyboardNavigation.ControlTabNavigation="Cycle"
+                          FocusManager.FocusedElement="{Binding ElementName=PART_ButtonContext}"
+                          Focusable="True">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="100" />
+                            <RowDefinition Height="8*" />
+                            <RowDefinition Height="2.2*" />
+                            <RowDefinition Height="1.5*" />
+                        </Grid.RowDefinitions>
+
+                        <ContentControl x:Name="BackgroundChanger_PluginBackgroundImage" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.RowSpan="4" >
+                            <ContentControl.Style>
+                                <Style>
+                                    <Setter Property="ItemsControl.Visibility" Value="Collapsed" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{PluginSettings Plugin=BackgroundChanger, Path=HasDataBackground, FallbackValue=False}" Value="True">
+                                            <Setter Property="ItemsControl.Visibility" Value="Visible" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ContentControl.Style>
+                        </ContentControl>
+
+                        <Image HorizontalAlignment="Center" VerticalAlignment="Top" Grid.RowSpan="4"  Stretch="UniformToFill" Source="{Binding BackgroundImage, Converter={StaticResource ImageStringToImageConverter}, IsAsync=False}">
+                            <Image.Style>
+                                <Style>
+                                    <Setter Property="ItemsControl.Visibility" Value="Collapsed" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ElementName=BackgroundChanger_PluginBackgroundImage, Path=Visibility}" Value="Collapsed" >
+                                            <Setter Property="ItemsControl.Visibility" Value="Visible" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Image.Style>
+                        </Image>
+
+                        <StackPanel x:Name="AffLogo" Grid.Row="1" Margin="50,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" MaxHeight="630" MaxWidth="650">
+                            <StackPanel.Style>
+                                <Style TargetType="StackPanel">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Settings FullscreenItemSpacingMargin}" Value="0,0,0,0">
+                                            <Setter Property="ItemsControl.Visibility" Value="Visible" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Settings FullscreenItemSpacingMargin}" Value="0.1875,0,0.1875,0">
+                                            <Setter Property="ItemsControl.Visibility" Value="Visible" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </StackPanel.Style>
+
+                            <StackPanel x:Name="LogoExtension">
+                                <StackPanel.Style>
+                                    <Style TargetType="StackPanel">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{PluginSettings Plugin=ExtraMetadataLoader, Path=IsLogoAvailable, FallbackValue=False}" Value="True">
+                                                <Setter Property="Visibility" Value="Visible" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </StackPanel.Style>
+                                <ContentControl x:Name="ExtraMetadataLoader_LogoLoaderControl" />
+                            </StackPanel>
+
+                            <Image x:Name="LogoIcone" Source="{Binding IconObjectCached}">
+                                <Image.Style>
+                                    <Style>
+                                        <Setter Property="ItemsControl.Visibility" Value="Collapsed"/>
+                                        <Style.Triggers>
+                                            <MultiDataTrigger>
+                                                <MultiDataTrigger.Conditions>
+                                                    <Condition Binding="{Binding IconObjectCached, Converter={StaticResource NullToBoolConverter}}" Value="True"/>
+                                                    <Condition Binding="{Binding ElementName=LogoExtension, Path=Visibility}" Value="Collapsed" />
+                                                </MultiDataTrigger.Conditions>
+                                                <Setter Property="ItemsControl.Visibility" Value="Visible" />
+                                            </MultiDataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Image.Style>
+                            </Image>
+                        </StackPanel>
+
+                        <StackPanel x:Name="LeTest" Grid.Row="2" Margin="80,5,5,5" HorizontalAlignment="Left" VerticalAlignment="Bottom" Opacity="1.0" 
+                                    FocusManager.FocusedElement="{Binding ElementName=PART_ButtonContext}">
+                            <TextBlock Text="{Binding DisplayName}"
+                                       Foreground="White" FontFamily="{DynamicResource FontTitilliumWebBold}"
+                                       FontSize="38" DockPanel.Dock="Top" Margin="0,0,0,13">
+                                <TextBlock.Effect>
+                                    <DropShadowEffect ShadowDepth="2" Color="Black"
+                                                      RenderingBias="Quality" Opacity="1"/>
+                                </TextBlock.Effect>
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock" BasedOn="{StaticResource TextBlockBaseStyle}">
+                                        <Setter Property="ItemsControl.Visibility" Value="Collapsed" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding ElementName=AffLogo, Path=Visibility}" Value="Collapsed">
+                                                <Setter Property="ItemsControl.Visibility" Value="Visible" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Settings FullscreenItemSpacingMargin}" Value="0.1875,0,0.1875,0">
+                                                <Setter Property="ItemsControl.Visibility" Value="Visible" />
+                                            </DataTrigger>
+                                            <MultiDataTrigger>
+                                                <MultiDataTrigger.Conditions>
+                                                    <Condition Binding="{Binding ElementName=LogoIcone, Path=Visibility}" Value="Collapsed" />
+                                                    <Condition Binding="{Binding ElementName=LogoExtension, Path=Visibility}" Value="Collapsed" />
+                                                </MultiDataTrigger.Conditions>
+                                                <Setter Property="ItemsControl.Visibility" Value="Visible" />
+                                            </MultiDataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+
+                            <StackPanel Orientation="Horizontal" Margin="0" DockPanel.Dock="Top">
+                                <ButtonEx x:Name="PART_ButtonContext" Style="{DynamicResource ButtonPlay}" HorizontalContentAlignment="Center" />
+                                <ButtonEx x:Name="PART_ButtonOptions" Style="{DynamicResource ButtonMore}" Content="..."
+                                          Margin="15,0,0,0" BorderThickness="2" HorizontalContentAlignment="Center" />
+                            </StackPanel>
+                        </StackPanel>
+
+                        <ButtonEx x:Name="MasqTout" DockPanel.Dock="Top" Opacity="0" Width="0" Height="0" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Center"/>
+
+                        <ButtonEx x:Name="DeAffInfos" DockPanel.Dock="Top" Opacity="0" Width="0" Height="0" HorizontalAlignment="Center" Grid.Row="0" VerticalAlignment="Center" Margin="0,0,0,0" Focusable="False" FocusManager.FocusedElement="{Binding ElementName=PART_ButtonOptions}" />
+
+                        <Grid x:Name="Details" Height="620" VerticalAlignment="Bottom" Grid.Row="1" Width="1508" Grid.RowSpan="13" Margin="0,0,0,-620" Background="#CC000000" Focusable="False">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2" />
+                                <ColumnDefinition Width="250" />
+                                <ColumnDefinition Width="4" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="2" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="70" />
+                                <RowDefinition Height="333" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="50" />
+                            </Grid.RowDefinitions>
+
+                            <ScrollViewerEx DockPanel.Dock="Top" Grid.Row="1" Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Top" x:Name="Description"
+                                            Margin="0,110,0,0" Grid.RowSpan="2" HorizontalContentAlignment="Left" >
+                                <HtmlTextView x:Name="PART_HtmlDescription"
+                                                HtmlFontSize="22" Margin="20,0,10,0"
+                                                HtmlForeground="{DynamicResource TextColor}"
+                                                LinkForeground="{DynamicResource GlyphColor}"
+                                                FocusVisualStyle="{x:Null}" Focusable="True" Visibility="Visible"
+                                                ScrollViewer.VerticalScrollBarVisibility="Auto" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                            </ScrollViewerEx>
+
+                            <TextBlock Style="{DynamicResource TextBlockBaseStyle}"
+                                       Text="{Binding DisplayName}"
+                                       Foreground="White" FontFamily="{DynamicResource FontTitilliumWebBold}"
+                                       FontSize="38" DockPanel.Dock="Top" Margin="0,0,0,13" Grid.ColumnSpan="6" HorizontalAlignment="Center">
+                            </TextBlock>
+
+                            <Border Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" MaxWidth="250" MaxHeight="333" Grid.Column="1">
+                                <Image x:Name="PART_ImageCover" />
+                            </Border>
+                            
+                            <StackPanel Grid.Row="2" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,10,0,0">
+                                <TextBlock Style="{DynamicResource TextBlockBaseStyle}"
+                                               FontFamily="{DynamicResource FontTitilliumWebBold}"
+                                               Text="{DynamicResource LOCGamePlatformTitle}"
+                                               Margin="0,0,0,10" />
+                                <TextBlock Style="{DynamicResource TextBlockBaseStyle}"
+                                               Text="{Binding Platforms, Converter={StaticResource ListToStringConverter}}" VerticalAlignment="Center" />
+                            </StackPanel>
+
+                            <Image Source="{Binding LibraryPlugin.LibraryIcon}"
+                               Height="50" RenderOptions.BitmapScalingMode="Fant" Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Top" Grid.Column="1" Width="50" Margin="0,100,0,0">
+                            </Image>
+
+                            <Grid Grid.Row="1" Grid.Column="3" Margin="40,0,10,0" Height="100" VerticalAlignment="Top" HorizontalAlignment="Left">
+                                <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" HorizontalAlignment="Center">
+                                    <StackPanel>
+                                        <TextBlock Style="{DynamicResource TextBlockBaseStyle}"
+                                               FontFamily="{DynamicResource FontTitilliumWebBold}"
+                                               Text="{DynamicResource LOCGameReleaseDateTitle}"
+                                               Margin="0,0,0,10" />
+                                        <TextBlock Style="{DynamicResource TextBlockBaseStyle}"
+                                               Text="{Binding ReleaseDate}" HorizontalAlignment="Center" />
+                                    </StackPanel>
+
+                                    <StackPanel Margin="50,0,0,0">
+                                        <TextBlock Style="{DynamicResource TextBlockBaseStyle}"
+                                               FontFamily="{DynamicResource FontTitilliumWebBold}"
+                                               Text="{DynamicResource LOCGameLastActivityTitle}"
+                                               Margin="0,0,0,10" />
+                                        <TextBlock Style="{DynamicResource TextBlockBaseStyle}"
+                                               Text="{Binding LastActivity, Converter={StaticResource DateTimeToLastPlayedConverter}}" HorizontalAlignment="Center" />
+                                    </StackPanel>
+
+                                    <StackPanel Margin="50,0,0,0">
+                                        <TextBlock Style="{DynamicResource TextBlockBaseStyle}"
+                                               FontFamily="{DynamicResource FontTitilliumWebBold}"
+                                               Text="{DynamicResource LOCTimePlayed}"
+                                               Margin="0,0,0,10" />
+                                        <TextBlock Style="{DynamicResource TextBlockBaseStyle}"
+                                               Text="{Binding Playtime, Converter={StaticResource PlayTimeToStringConverter}}" HorizontalAlignment="Center" />
+                                    </StackPanel>
+
+                                    <StackPanel Margin="50,0,0,0">
+                                        <TextBlock Style="{DynamicResource TextBlockBaseStyle}"
+                                               FontFamily="{DynamicResource FontTitilliumWebBold}"
+                                               Text="{DynamicResource LOCCompletionStatus}"
+                                               Margin="0,0,0,10" />
+                                        <TextBlock Style="{DynamicResource TextBlockBaseStyle}"
+                                               Text="{Binding CompletionStatus}" HorizontalAlignment="Center" />
+                                    </StackPanel>
+                                </StackPanel>
+                            </Grid>
+
+                            <Image x:Name="Arrow" RenderOptions.BitmapScalingMode="Fant" Source="{ThemeFile 'Images/Arrow.png'}" HorizontalAlignment="Center" VerticalAlignment="Top" Width="50" Opacity="0.7" Margin="0,-17,0,0" Grid.Column="0" Grid.ColumnSpan="6"/>
+                            
+                        </Grid>
+
+                    </Grid>
+
+
+                    <ControlTemplate.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=PART_ElemGameDetails, Path=Visibility}" Value="Visible">
+                            <DataTrigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetProperty="Opacity" BeginTime="0:0:0" Duration="0:0:0.3" From="0" To="1"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </DataTrigger.EnterActions>
+                        </DataTrigger>
+                        <Trigger Property="IsFocused" SourceName="MasqTout" Value="True">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="LeTest" Storyboard.TargetProperty="Opacity" Duration="0:0:1">
+                                            <LinearDoubleKeyFrame Value = "1.0" KeyTime = "0:0:0"/>
+                                            <LinearDoubleKeyFrame Value = "0.0" KeyTime = "0:0:1"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="Arrow" Storyboard.TargetProperty="Opacity" Duration="0:0:1">
+                                            <LinearDoubleKeyFrame Value = "0.7" KeyTime = "0:0:0"/>
+                                            <LinearDoubleKeyFrame Value = "0.0" KeyTime = "0:0:1"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="AffLogo" Storyboard.TargetProperty="Opacity" Duration="0:0:1">
+                                            <LinearDoubleKeyFrame Value = "1.0" KeyTime = "0:0:0"/>
+                                            <LinearDoubleKeyFrame Value = "0.0" KeyTime = "0:0:1"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard BeginTime="0:0:0">
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="LeTest" Storyboard.TargetProperty="Opacity" Duration="0:0:1">
+                                            <LinearDoubleKeyFrame Value = "0.0" KeyTime = "0:0:0"/>
+                                            <LinearDoubleKeyFrame Value = "1.0" KeyTime = "0:0:1"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="Arrow" Storyboard.TargetProperty="Opacity" Duration="0:0:1">
+                                            <LinearDoubleKeyFrame Value = "0.0" KeyTime = "0:0:0"/>
+                                            <LinearDoubleKeyFrame Value = "0.7" KeyTime = "0:0:1"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="AffLogo" Storyboard.TargetProperty="Opacity" Duration="0:0:1">
+                                            <LinearDoubleKeyFrame Value = "0.0" KeyTime = "0:0:0"/>
+                                            <LinearDoubleKeyFrame Value = "1.0" KeyTime = "0:0:1"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.ExitActions>
+                        </Trigger>
+                        <Trigger Property="IsFocused" SourceName="PART_HtmlDescription" Value="True">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard BeginTime="0:0:0">
+                                        <BooleanAnimationUsingKeyFrames Storyboard.TargetName="DeAffInfos" Storyboard.TargetProperty="Focusable">
+                                            <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="True" />
+                                        </BooleanAnimationUsingKeyFrames>
+                                        <BooleanAnimationUsingKeyFrames Storyboard.TargetName="PART_ButtonOptions" Storyboard.TargetProperty="Focusable">
+                                            <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="False" />
+                                        </BooleanAnimationUsingKeyFrames>
+                                        <BooleanAnimationUsingKeyFrames Storyboard.TargetName="MasqTout" Storyboard.TargetProperty="Focusable">
+                                            <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="False" />
+                                        </BooleanAnimationUsingKeyFrames>
+                                        <ThicknessAnimation Duration="0:0:1" 
+                                                            Storyboard.TargetName="LeTest" 
+                                                            Storyboard.TargetProperty="Margin"
+                                                            >
+                                            <ThicknessAnimation.To>
+                                                <Thickness>-1000,5,5,5</Thickness>
+                                            </ThicknessAnimation.To>
+                                            <ThicknessAnimation.EasingFunction>
+                                                <CircleEase EasingMode="EaseOut"/>
+                                            </ThicknessAnimation.EasingFunction>
+                                        </ThicknessAnimation>
+                                        <ThicknessAnimation Duration="0:0:1" 
+                                                            Storyboard.TargetName="Details" 
+                                                            Storyboard.TargetProperty="Margin"
+                                                            >
+                                            <ThicknessAnimation.EasingFunction>
+                                                <CircleEase EasingMode="EaseOut"/>
+                                            </ThicknessAnimation.EasingFunction>
+                                            <ThicknessAnimation.To>
+                                                <Thickness>0,0,0,-50</Thickness>
+                                            </ThicknessAnimation.To>
+                                        </ThicknessAnimation>
+                                        <ThicknessAnimation Duration="0:0:1" 
+                                                            Storyboard.TargetName="AffLogo" 
+                                                            Storyboard.TargetProperty="Margin"
+                                                            >
+                                            <ThicknessAnimation.To>
+                                                <Thickness>206,0,0,200</Thickness>
+                                            </ThicknessAnimation.To>
+                                            <ThicknessAnimation.EasingFunction>
+                                                <CircleEase EasingMode="EaseOut"/>
+                                            </ThicknessAnimation.EasingFunction>
+                                        </ThicknessAnimation>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard BeginTime="0:0:0">
+                                        <BooleanAnimationUsingKeyFrames Storyboard.TargetName="DeAffInfos" Storyboard.TargetProperty="Focusable">
+                                            <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="False" />
+                                        </BooleanAnimationUsingKeyFrames>
+                                        <BooleanAnimationUsingKeyFrames Storyboard.TargetName="PART_ButtonOptions" Storyboard.TargetProperty="Focusable">
+                                            <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="True" />
+                                        </BooleanAnimationUsingKeyFrames>
+                                        <BooleanAnimationUsingKeyFrames Storyboard.TargetName="MasqTout" Storyboard.TargetProperty="Focusable">
+                                            <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="True" />
+                                        </BooleanAnimationUsingKeyFrames>
+                                        <ThicknessAnimation Duration="0:0:1" 
+                                                            Storyboard.TargetName="LeTest" 
+                                                            Storyboard.TargetProperty="Margin"
+                                                            >
+                                            <ThicknessAnimation.To>
+                                                <Thickness>80,5,5,5</Thickness>
+                                            </ThicknessAnimation.To>
+                                            <ThicknessAnimation.EasingFunction>
+                                                <CircleEase EasingMode="EaseOut"/>
+                                            </ThicknessAnimation.EasingFunction>
+                                        </ThicknessAnimation>
+                                        <ThicknessAnimation Duration="0:0:1" 
+                                                            Storyboard.TargetName="Details" 
+                                                            Storyboard.TargetProperty="Margin"
+                                                            >
+                                            <ThicknessAnimation.To>
+                                                <Thickness>0,0,0,-620</Thickness>
+                                            </ThicknessAnimation.To>
+                                            <ThicknessAnimation.EasingFunction>
+                                                <CircleEase EasingMode="EaseOut"/>
+                                            </ThicknessAnimation.EasingFunction>
+                                        </ThicknessAnimation>
+                                        <ThicknessAnimation Duration="0:0:1" 
+                                                            Storyboard.TargetName="AffLogo" 
+                                                            Storyboard.TargetProperty="Margin"
+                                                            >
+                                            <ThicknessAnimation.To>
+                                                <Thickness>50,0,0,0</Thickness>
+                                            </ThicknessAnimation.To>
+                                            <ThicknessAnimation.EasingFunction>
+                                                <CircleEase EasingMode="EaseOut"/>
+                                            </ThicknessAnimation.EasingFunction>
+                                        </ThicknessAnimation>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.ExitActions>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>
