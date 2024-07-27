@@ -43,6 +43,8 @@ By default, only the background is shown, if you want to close this window just 
 - [x] Add BackgroundChanger support
 - [x] Add Extra Metadata Loader support (Logos)
 - [ ] Add some modifiable skin settings (icon show, title show, Play item position, theme color, ...)
+- [ ] Add a music player to Detail View which plays a game-specific music (if possible)
+- [ ] Add custom buttons color in Detail View (inspired by [ReskinPS5](https://github.com/TheKersalMassive/ReskinPS5#how-do-i-get-a-custom-colour-border))
 - [ ] Add tools to Playnite menu (if possible)
 - [ ] Add SuccessStory entry to Advanced details
 - [ ] Add HowLongToBeat entry to Advanced details
