@@ -38,7 +38,7 @@
                             </ContentControl.Style>
                         </ContentControl>
 
-                        <Image HorizontalAlignment="Center" VerticalAlignment="Top" Grid.RowSpan="4"  Stretch="Uniform" Source="{Binding BackgroundImage, Converter={StaticResource ImageStringToImageConverter}, IsAsync=False}">
+                        <Image HorizontalAlignment="Center" VerticalAlignment="Top" Grid.RowSpan="4"  Stretch="UniformToFill" Source="{Binding BackgroundImage, Converter={StaticResource ImageStringToImageConverter}, IsAsync=False}">
                             <Image.Style>
                                 <Style>
                                     <Setter Property="ItemsControl.Visibility" Value="Collapsed" />
