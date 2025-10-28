@@ -51,6 +51,16 @@
                             </Image.Style>
                         </Image>
 
+                        <!--
+                        0 = 0,0,0,0               : Logo OU Titre
+                        1 = 0.1875,0,0.1875,0     : Logo ET Titre
+                        2 = 0.375,0.5,0.375,0.5   : Ni Logo ni Titre
+                        Autre                     : Titre Sans Logo
+
+                        3 = 0.5625,0.5,0.5625,0.5
+                        4 = 0.75,1,0.75,1
+                        -->
+
                         <StackPanel x:Name="AffLogo" Grid.Row="1" Margin="50,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" MaxHeight="630" MaxWidth="650">
                             <StackPanel.Style>
                                 <Style TargetType="StackPanel">

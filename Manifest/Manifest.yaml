@@ -1,6 +1,6 @@
 AddonId: Revisited_75824c9b-aa0e-43ad-a98c-9b4c44f07848
 Packages:
-  - Version: 1.5
+  - Version: 1.5.0
     RequiredApiVersion: 2.0.0
     ReleaseDate: 2022-03-09
     PackageUrl: https://github.com/ld892012/PlayniteRevisitedSkin/releases/download/1.5/Revisited_1_5.pthm
@@ -59,3 +59,9 @@ Packages:
     PackageUrl: https://github.com/ld892012/PlayniteRevisitedSkin/releases/download/2.0.1/Revisited_2_0_1.pthm
     Changelog:
       - Change image stretch in detail view to force image background to fill entire screen
+  - Version: 2.0.2
+    RequiredApiVersion: 2.9.0
+    ReleaseDate: 2025-10-28
+    PackageUrl: https://github.com/ld892012/PlayniteRevisitedSkin/releases/download/2.0.2/Revisited_2_0_2.pthm
+    Changelog:
+      - Add ProgressBar support according to last Default skin update
