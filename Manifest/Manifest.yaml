@@ -65,3 +65,12 @@ Packages:
     PackageUrl: https://github.com/ld892012/PlayniteRevisitedSkin/releases/download/2.0.2/Revisited_2_0_2.pthm
     Changelog:
       - Add ProgressBar support according to last Default skin update
+  - Version: 2.1.0
+    RequiredApiVersion: 2.9.0
+    ReleaseDate: 2025-11-10
+    PackageUrl: https://github.com/ld892012/PlayniteRevisitedSkin/releases/download/2.1.0/Revisited_2_1_0.pthm
+    Changelog:
+      - Add ClearBackground support, if you have a ClearBackground for a game put it into '<Playnite configuration path>\ExtraMetadata\<Game Database ID>\ClearBackground.jpg' and the theme loads it in Status view and when UI is hidded in Detail view (thanks to saVantCZ for the help)
+      - Add a way to use the ExtraMetadata logo without Extra Metadata Loader. Now, if the extension is not installed, the theme checks for the presence of '<Playnite configuration path>\ExtraMetadata\<Game Database ID>\Logo.png'
+      - Fixed an issue where the Icon was stretched
+      - Add Back to Game support
