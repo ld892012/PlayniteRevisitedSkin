@@ -12,6 +12,104 @@
                           d:DesignWidth="{StaticResource DesignWidth}"
                           d:DesignHeight="{StaticResource DesignHeight}"
                           d:DataContext="{x:Static DesignMainViewModel.DesignIntance}">
+
+                        <!-- Prototype : Play background music and game specific music when in Detail view -->
+                        <!--Grid Name="MusicBGMenu" Opacity="0" Visibility="{PluginStatus Plugin=Playnite.Sounds.Mod.baf1744c-72f6-4bc1-92cc-474403b279fb, Status=Installed}">
+                            <TextBlock Name="MusicPath" Tag="{DynamicResource ExtraMetadataPath}" Visibility="Collapsed" Foreground="Gray">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Text">
+                                            <Setter.Value>
+                                                <MultiBinding StringFormat="{}{0}{1}{2}">
+                                                    <Binding RelativeSource="{RelativeSource Self}" Path="Tag" />
+                                                    <Binding Source="\ExtraMetadata\Default\"/>
+                                                    <Binding Source="\Background.mp3"/>
+                                                </MultiBinding>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                            <MediaElement x:Name="Music" MediaElementBehaviors.Repeat="True">
+                                <MediaElement.Style>
+                                    <Style TargetType="MediaElement">
+                                        <Setter Property="MediaElement.Source" Value="{Binding ElementName=MusicPath, Path=Text}"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=IsActive}" Value="False">
+                                                <Setter Property="MediaElement.Source" Value="" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding ElementName=MusicGame, Path=Clock}" Value="{x:Null}">
+                                                    <Setter Property="MediaElement.Source" Value=""/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </MediaElement.Style>
+                            </MediaElement>
+                            <TextBlock Name="MusicGamePath" Tag="{DynamicResource ExtraMetadataPath}" Visibility="Collapsed" Foreground="Gray">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Text">
+                                            <Setter.Value>
+                                                <MultiBinding StringFormat="{}{0}{1}{2}{3}">
+                                                    <Binding RelativeSource="{RelativeSource Self}" Path="Tag" />
+                                                    <Binding Source="\ExtraMetadata\games\"/>
+                                                    <Binding Path="SelectedGame.Id"/>
+                                                    <Binding Source="\Background.mp3" />
+                                                </MultiBinding>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                            <MediaElement x:Name="MusicGame" MediaElementBehaviors.Repeat="True">
+                                <MediaElement.Style>
+                                    <Style TargetType="MediaElement">
+                                        <Setter Property="MediaElement.Source" Value="{Binding ElementName=MusicGamePath, Path=Text}"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=IsActive}" Value="False">
+                                                <Setter Property="MediaElement.Source" Value=""/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding ElementName=PART_ElemGameDetails, Path=Visibility}" Value="Collapsed">
+                                                <Setter Property="MediaElement.Source" Value=""/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </MediaElement.Style>
+                            </MediaElement>
+                        </Grid-->
+
+                        <!-- Prototype : Play game specific music by selected game -->
+                        <!--Grid Name="MusicBG" Opacity="0">
+                            <TextBlock Name="MusicGamePath" Tag="{DynamicResource ExtraMetadataPath}" Visibility="Collapsed" Foreground="Gray">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Text">
+                                            <Setter.Value>
+                                                <MultiBinding StringFormat="{}{0}{1}{2}{3}">
+                                                    <Binding RelativeSource="{RelativeSource Self}" Path="Tag" />
+                                                    <Binding Source="\ExtraMetadata\games\"/>
+                                                    <Binding Path="SelectedGame.Id"/>
+                                                    <Binding Source="\Background.mp3" />
+                                                </MultiBinding>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                            <MediaElement x:Name="MusicGame" MediaElementBehaviors.Repeat="True">
+                                <MediaElement.Style>
+                                    <Style TargetType="MediaElement">
+                                        <Setter Property="MediaElement.Source" Value="{Binding ElementName=MusicGamePath, Path=Text}"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=IsActive}" Value="False">
+                                                <Setter Property="MediaElement.Source" Value="" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </MediaElement.Style>
+                            </MediaElement>
+                        </Grid-->
+
                         <Grid x:Name="PART_ViewHost" Background="{DynamicResource MainBackgourndBrush}" Grid.Row="2">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="70" />

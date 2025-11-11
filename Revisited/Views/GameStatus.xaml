@@ -5,7 +5,7 @@
                     mc:Ignorable="d">
 
     <Style x:Key="ButtonGameStatusAction" BasedOn="{StaticResource {x:Type ButtonEx}}" TargetType="ButtonEx">
-        <Setter Property="Margin" Value="0,5,0,5" />
+        <Setter Property="Margin" Value="5,5,5,5" />
         <Setter Property="HorizontalContentAlignment" Value="Center" />
         <Setter Property="MinWidth" Value="100" />
     </Style>
@@ -30,16 +30,62 @@
                             <RowDefinition Height="10" />
                         </Grid.RowDefinitions>
 
-                        <FadeImage Name="Background" Source="{Binding Game.BackgroundImage}"
-                               RenderOptions.BitmapScalingMode="Fant"
-                               HorizontalAlignment="Center" VerticalAlignment="Top" Grid.RowSpan="3"/>
+                        <FadeImage Name="Background" Source="{Binding Game.BackgroundImage}" RenderOptions.BitmapScalingMode="Fant" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.RowSpan="3">
+                            <FadeImage.Style>
+                                <Style TargetType="FadeImage">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ElementName=ClearBGImage, Path=ActualHeight}" Value="0">
+                                            <Setter Property="Visibility" Value="Visible" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </FadeImage.Style>
+                        </FadeImage>
+
+                        <StackPanel Name="ClearBG" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.RowSpan="3">
+                            <TextBlock Name="ClearBGPath" Tag="{Api Paths.ConfigurationPath}" Visibility="Collapsed" Foreground="Gray">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Text">
+                                            <Setter.Value>
+                                                <MultiBinding StringFormat="{}{0}{1}{2}{3}">
+                                                    <Binding RelativeSource="{RelativeSource Self}" Path="Tag" />
+                                                    <Binding Source="\ExtraMetadata\games\"/>
+                                                    <Binding Path="Game.Id"/>
+                                                    <Binding Source="\ClearBackground.jpg" />
+                                                </MultiBinding>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                            <FadeImage Name="ClearBGImage" Source="{Binding ElementName=ClearBGPath, Path=Text}" Stretch="UniformToFill" RenderOptions.BitmapScalingMode="Fant"/>
+                        </StackPanel>
 
                         <ButtonEx x:Name="DefFocus" Opacity="0" Width="{StaticResource DesignWidth}" Height="960" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Top"/>
 
-                        <StackPanel x:Name="PART_PanelActionButtons" Orientation="Horizontal" Opacity="0" MinWidth="100" Height="50" Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+                        <StackPanel x:Name="Actions" Orientation="Horizontal" Opacity="0" Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Center">
+                            <StackPanel x:Name="PART_PanelActionButtons" Orientation="Horizontal"/>
+                            <ButtonEx Content="{DynamicResource LOCBackToGame}" Command="{PluginSettings Plugin=BackToGame, Path=ActivateGame}">
+                                <ButtonEx.Style>
+                                    <Style TargetType="ButtonEx" BasedOn="{StaticResource ButtonGameStatusAction}">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                        <Style.Triggers>
+                                            <MultiDataTrigger>
+                                                <MultiDataTrigger.Conditions>
+                                                    <Condition Binding="{PluginStatus Plugin=BackToGame_c05dfa72-e302-44cf-9612-af1f7caa07f7, Status=Installed}" Value="True"/>
+                                                    <Condition Binding="{PluginSettings Plugin=BackToGame, Path=IsRunning}" Value="True"/>
+                                                </MultiDataTrigger.Conditions>
+                                                <Setter Property="Visibility" Value="Visible" />
+                                            </MultiDataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </ButtonEx.Style>
+                            </ButtonEx>
+                        </StackPanel>
 
-                        <TextBlock Name="PART_TextStatus" TextWrapping="Wrap"
-                                   Style="{StaticResource TextBlockBaseStyle}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Opacity="0" Grid.Row="1"/>
+                        <TextBlock Name="PART_TextStatus" TextWrapping="Wrap" Style="{StaticResource TextBlockBaseStyle}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Opacity="0" Grid.Row="1"/>
                     </Grid>
 
                     <ControlTemplate.Triggers>
@@ -51,7 +97,7 @@
                                             <LinearDoubleKeyFrame Value = "1.0" KeyTime = "0:0:0"/>
                                             <LinearDoubleKeyFrame Value = "0.0" KeyTime = "0:0:1"/>
                                         </DoubleAnimationUsingKeyFrames>
-                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="PART_PanelActionButtons" Storyboard.TargetProperty="Opacity" Duration="0:0:1">
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="Actions" Storyboard.TargetProperty="Opacity" Duration="0:0:1">
                                             <LinearDoubleKeyFrame Value = "1.0" KeyTime = "0:0:0"/>
                                             <LinearDoubleKeyFrame Value = "0.0" KeyTime = "0:0:1"/>
                                         </DoubleAnimationUsingKeyFrames>
@@ -65,7 +111,7 @@
                                             <LinearDoubleKeyFrame Value = "0.0" KeyTime = "0:0:0"/>
                                             <LinearDoubleKeyFrame Value = "1.0" KeyTime = "0:0:1"/>
                                         </DoubleAnimationUsingKeyFrames>
-                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="PART_PanelActionButtons" Storyboard.TargetProperty="Opacity" Duration="0:0:1">
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="Actions" Storyboard.TargetProperty="Opacity" Duration="0:0:1">
                                             <LinearDoubleKeyFrame Value = "0.0" KeyTime = "0:0:0"/>
                                             <LinearDoubleKeyFrame Value = "1.0" KeyTime = "0:0:1"/>
                                         </DoubleAnimationUsingKeyFrames>

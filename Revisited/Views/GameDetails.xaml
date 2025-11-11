@@ -51,6 +51,32 @@
                             </Image.Style>
                         </Image>
 
+                        <StackPanel Name="ClearBG" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.RowSpan="4" Opacity="0">
+                            <TextBlock Name="ClearBGPath" Tag="{Api Paths.ConfigurationPath}" Visibility="Collapsed" Foreground="Gray">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Text">
+                                            <Setter.Value>
+                                                <MultiBinding StringFormat="{}{0}{1}{2}{3}">
+                                                    <Binding RelativeSource="{RelativeSource Self}" Path="Tag" />
+                                                    <Binding Source="\ExtraMetadata\games\"/>
+                                                    <Binding Path="Game.Id"/>
+                                                    <Binding Source="\ClearBackground.jpg" />
+                                                </MultiBinding>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                            <FadeImage Name="ClearBGImage" Stretch="UniformToFill">
+                                <FadeImage.Style>
+                                    <Style TargetType="FadeImage">
+                                        <Setter Property="Source" Value="{Binding ElementName=ClearBGPath, Path=Text}"/>
+                                    </Style>
+                                </FadeImage.Style>
+                            </FadeImage>
+                        </StackPanel>
+
                         <!--
                         0 = 0,0,0,0               : Logo OU Titre
                         1 = 0.1875,0,0.1875,0     : Logo ET Titre
@@ -76,9 +102,10 @@
                                 </Style>
                             </StackPanel.Style>
 
-                            <StackPanel x:Name="LogoExtension">
-                                <StackPanel.Style>
-                                    <Style TargetType="StackPanel">
+                            <!-- Extra Metadata Loader -->
+                            <Grid x:Name="LogoExtra">
+                                <Grid.Style>
+                                    <Style TargetType="Grid">
                                         <Setter Property="Visibility" Value="Collapsed" />
                                         <Style.Triggers>
                                             <DataTrigger Binding="{PluginSettings Plugin=ExtraMetadataLoader, Path=IsLogoAvailable, FallbackValue=False}" Value="True">
@@ -86,19 +113,52 @@
                                             </DataTrigger>
                                         </Style.Triggers>
                                     </Style>
-                                </StackPanel.Style>
+                                </Grid.Style>
                                 <ContentControl x:Name="ExtraMetadataLoader_LogoLoaderControl" />
-                            </StackPanel>
+                            </Grid>
 
-                            <Image x:Name="LogoIcone" Source="{Binding IconObjectCached}">
+                            <!-- Extra Metadata Fullscreen Mode Helper -->
+                            <Grid Name="LogoExtraLoader">
+                                <Grid.Style>
+                                    <Style TargetType="Grid">
+                                        <Setter Property="ItemsControl.Visibility" Value="Collapsed"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{PluginStatus Plugin=ExtraMetadataLoader_705fdbca-e1fc-4004-b839-1d040b8b4429, Status=Installed}" Value="False">
+                                                <Setter Property="Visibility" Value="Visible" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Grid.Style>
+                                <TextBlock Name="LogoPath" Tag="{Api Paths.ConfigurationPath}" Visibility="Collapsed" Foreground="Gray">
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="Text">
+                                                <Setter.Value>
+                                                    <MultiBinding StringFormat="{}{0}{1}{2}{3}">
+                                                        <Binding RelativeSource="{RelativeSource Self}" Path="Tag" />
+                                                        <Binding Source="\ExtraMetadata\games\"/>
+                                                        <Binding Path="Game.Id"/>
+                                                        <Binding Source="\Logo.png" />
+                                                    </MultiBinding>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                                <Image Name="LogoImage" Source="{Binding ElementName=LogoPath, Path=Text}" Stretch="Uniform" StretchDirection="DownOnly" RenderOptions.BitmapScalingMode="Fant"/>
+                            </Grid>
+
+                            <!-- Icone -->
+                            <Image x:Name="LogoIcone" Source="{Binding IconObjectCached}" Stretch="Uniform" StretchDirection="DownOnly" RenderOptions.BitmapScalingMode="Fant">
                                 <Image.Style>
                                     <Style>
                                         <Setter Property="ItemsControl.Visibility" Value="Collapsed"/>
                                         <Style.Triggers>
                                             <MultiDataTrigger>
                                                 <MultiDataTrigger.Conditions>
+                                                    <Condition Binding="{Binding ElementName=LogoExtra, Path=Visibility}" Value="Collapsed" />
+                                                    <Condition Binding="{Binding ElementName=LogoImage, Path=ActualHeight}" Value="0"/>
                                                     <Condition Binding="{Binding IconObjectCached, Converter={StaticResource NullToBoolConverter}}" Value="True"/>
-                                                    <Condition Binding="{Binding ElementName=LogoExtension, Path=Visibility}" Value="Collapsed" />
                                                 </MultiDataTrigger.Conditions>
                                                 <Setter Property="ItemsControl.Visibility" Value="Visible" />
                                             </MultiDataTrigger>
@@ -106,16 +166,14 @@
                                     </Style>
                                 </Image.Style>
                             </Image>
+
                         </StackPanel>
 
                         <StackPanel x:Name="LeTest" Grid.Row="2" Margin="80,5,5,5" HorizontalAlignment="Left" VerticalAlignment="Bottom" Opacity="1.0" 
                                     FocusManager.FocusedElement="{Binding ElementName=PART_ButtonContext}">
-                            <TextBlock Text="{Binding DisplayName}"
-                                       Foreground="White" FontFamily="{DynamicResource FontTitilliumWebBold}"
-                                       FontSize="38" DockPanel.Dock="Top" Margin="0,0,0,13">
+                            <TextBlock Text="{Binding DisplayName}" Foreground="White" FontFamily="{DynamicResource FontTitilliumWebBold}" FontSize="38" DockPanel.Dock="Top" Margin="0,0,0,13">
                                 <TextBlock.Effect>
-                                    <DropShadowEffect ShadowDepth="2" Color="Black"
-                                                      RenderingBias="Quality" Opacity="1"/>
+                                    <DropShadowEffect ShadowDepth="2" Color="Black" RenderingBias="Quality" Opacity="1"/>
                                 </TextBlock.Effect>
                                 <TextBlock.Style>
                                     <Style TargetType="TextBlock" BasedOn="{StaticResource TextBlockBaseStyle}">
@@ -129,8 +187,9 @@
                                             </DataTrigger>
                                             <MultiDataTrigger>
                                                 <MultiDataTrigger.Conditions>
+                                                    <Condition Binding="{Binding ElementName=LogoExtra, Path=Visibility}" Value="Collapsed" />
+                                                    <Condition Binding="{Binding ElementName=LogoImage, Path=ActualHeight}" Value="0"/>
                                                     <Condition Binding="{Binding ElementName=LogoIcone, Path=Visibility}" Value="Collapsed" />
-                                                    <Condition Binding="{Binding ElementName=LogoExtension, Path=Visibility}" Value="Collapsed" />
                                                 </MultiDataTrigger.Conditions>
                                                 <Setter Property="ItemsControl.Visibility" Value="Visible" />
                                             </MultiDataTrigger>
@@ -184,7 +243,7 @@
                             <Border Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" MaxWidth="250" MaxHeight="333" Grid.Column="1">
                                 <Image x:Name="PART_ImageCover" />
                             </Border>
-                            
+
                             <StackPanel Grid.Row="2" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,10,0,0">
                                 <TextBlock Style="{DynamicResource TextBlockBaseStyle}"
                                                FontFamily="{DynamicResource FontTitilliumWebBold}"
@@ -239,9 +298,8 @@
                             </Grid>
 
                             <Image x:Name="Arrow" RenderOptions.BitmapScalingMode="Fant" Source="{ThemeFile 'Images/Arrow.png'}" HorizontalAlignment="Center" VerticalAlignment="Top" Width="50" Opacity="0.7" Margin="0,-17,0,0" Grid.Column="0" Grid.ColumnSpan="6"/>
-                            
-                        </Grid>
 
+                        </Grid>
                     </Grid>
 
 
@@ -271,6 +329,10 @@
                                             <LinearDoubleKeyFrame Value = "1.0" KeyTime = "0:0:0"/>
                                             <LinearDoubleKeyFrame Value = "0.0" KeyTime = "0:0:1"/>
                                         </DoubleAnimationUsingKeyFrames>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ClearBG" Storyboard.TargetProperty="Opacity" Duration="0:0:1">
+                                            <LinearDoubleKeyFrame Value = "0.0" KeyTime = "0:0:0"/>
+                                            <LinearDoubleKeyFrame Value = "1.0" KeyTime = "0:0:1"/>
+                                        </DoubleAnimationUsingKeyFrames>
                                     </Storyboard>
                                 </BeginStoryboard>
                             </Trigger.EnterActions>
@@ -288,6 +350,10 @@
                                         <DoubleAnimationUsingKeyFrames Storyboard.TargetName="AffLogo" Storyboard.TargetProperty="Opacity" Duration="0:0:1">
                                             <LinearDoubleKeyFrame Value = "0.0" KeyTime = "0:0:0"/>
                                             <LinearDoubleKeyFrame Value = "1.0" KeyTime = "0:0:1"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ClearBG" Storyboard.TargetProperty="Opacity" Duration="0:0:1">
+                                            <LinearDoubleKeyFrame Value = "1.0" KeyTime = "0:0:0"/>
+                                            <LinearDoubleKeyFrame Value = "0.0" KeyTime = "0:0:1"/>
                                         </DoubleAnimationUsingKeyFrames>
                                     </Storyboard>
                                 </BeginStoryboard>
